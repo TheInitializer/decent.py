@@ -1,0 +1,6 @@
+*.pyc
+__pycache__
+*.old
+*.sublime-project
+*.sublime-workspace
+test*

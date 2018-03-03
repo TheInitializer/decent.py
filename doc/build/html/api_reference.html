@@ -1,0 +1,657 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>API Reference &#8212; decent.py 0.1 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Common tasks" href="common_tasks.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="api-reference">
+<h1>API Reference<a class="headerlink" href="#api-reference" title="Permalink to this headline">¶</a></h1>
+<p>This is a list of every function decent.py provides, along with all the
+information you’ll need to use them.</p>
+<div class="section" id="server">
+<h2>Server<a class="headerlink" href="#server" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="Server">
+<em class="property">class </em><code class="descname">Server</code><span class="sig-paren">(</span><em>url</em>, <em>username</em>, <em>password</em><span class="sig-paren">)</span><a class="headerlink" href="#Server" title="Permalink to this definition">¶</a></dt>
+<dd><p>A connection to a Decent server.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>url</strong> (<em>str</em>) – The URL of the Decent server</li>
+<li><strong>username</strong> (<em>str</em>) – The username of the user being logged in</li>
+<li><strong>password</strong> (<em>str</em>) – The password of the user being logged in</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Variables:</th><td class="field-body"><ul class="first last simple">
+<li><strong>channels</strong> (<em>list</em><em>[</em><a class="reference internal" href="#Channel" title="Channel"><em>Channel</em></a><em>]</em>) – A list of all channels in the server</li>
+<li><strong>emotes</strong> (<em>list</em><em>[</em><a class="reference internal" href="#Emote" title="Emote"><em>Emote</em></a><em>]</em>) – A list of all emotes in the server</li>
+<li><strong>pretty_url</strong> (<em>str</em>) – The URL without a protocol or trailing slash</li>
+<li><strong>session_id</strong> (<em>str</em>) – The ID of the current session</li>
+<li><strong>url</strong> (<em>str</em>) – The URL of the Decent server</li>
+<li><strong>user</strong> (<a class="reference internal" href="#User" title="User"><em>User</em></a>) – The currently logged in user</li>
+<li><strong>users</strong> (<em>list</em><em>[</em><a class="reference internal" href="#User" title="User"><em>User</em></a><em>]</em>) – A list of all users on the server</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="Server.connect">
+<code class="descname">connect</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Server.connect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Connects to the Decent server, logs in with the given username and
+password, and opens a websocket connection.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><strong>DecentError</strong> – if the server is invalid or if there is an error
+logging in</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Server.create_channel">
+<code class="descname">create_channel</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#Server.create_channel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a new channel in the server.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> (<em>str</em>) – The name of the channel</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">the newly created <a class="reference internal" href="#Channel" title="Channel"><code class="xref py py-class docutils literal"><span class="pre">Channel</span></code></a> object</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Server.get_channel">
+<code class="descname">get_channel</code><span class="sig-paren">(</span><em>cid</em><span class="sig-paren">)</span><a class="headerlink" href="#Server.get_channel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets a channel from a channel ID.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>cid</strong> (<em>str</em>) – The channel ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">a <a class="reference internal" href="#Channel" title="Channel"><code class="xref py py-class docutils literal"><span class="pre">Channel</span></code></a> object with the given ID</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Server.get_message">
+<code class="descname">get_message</code><span class="sig-paren">(</span><em>mid</em><span class="sig-paren">)</span><a class="headerlink" href="#Server.get_message" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets a message from a message ID.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>mid</strong> (<em>str</em>) – The message ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">a <code class="xref py py-class docutils literal"><span class="pre">Message</span></code> object with the given ID</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Server.get_user">
+<code class="descname">get_user</code><span class="sig-paren">(</span><em>uid</em><span class="sig-paren">)</span><a class="headerlink" href="#Server.get_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets a user from a user ID.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>uid</strong> (<em>str</em>) – The user ID</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">a <a class="reference internal" href="#User" title="User"><code class="xref py py-class docutils literal"><span class="pre">User</span></code></a> object with the given ID</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Server.mainloop">
+<code class="descname">mainloop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Server.mainloop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Receives websocket data from the server and does stuff with it. Call this
+method regularly (usually in a while loop) and it will call your event
+functions decorated with <a class="reference internal" href="#Server.event" title="Server.event"><code class="xref py py-meth docutils literal"><span class="pre">Server.event()</span></code></a>, respond to ping events,
+and update the class when new channels or users are created.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><strong>DecentError</strong> – if the Server object has not been properly
+initialized (via <a class="reference internal" href="#Server.connect" title="Server.connect"><code class="xref py py-meth docutils literal"><span class="pre">Server.connect()</span></code></a>) before
+calling mainloop.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Server.event">
+<code class="descclassname">&#64;</code><code class="descname">event</code><a class="headerlink" href="#Server.event" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets up the decorated function to be called by <a class="reference internal" href="#Server.mainloop" title="Server.mainloop"><code class="xref py py-meth docutils literal"><span class="pre">Server.mainloop()</span></code></a>.</p>
+<p>Possible functions (must have one of these names):</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">on_message(message)</span></code> - gets called whenever a new message is sent.
+<code class="docutils literal"><span class="pre">message</span></code> is a <code class="xref py py-class docutils literal"><span class="pre">Message</span></code> object.</li>
+<li><code class="docutils literal"><span class="pre">on_edit(message)</span></code> - gets called whenever a message is edited.
+<code class="docutils literal"><span class="pre">message</span></code> is a <code class="xref py py-class docutils literal"><span class="pre">Message</span></code> object.</li>
+<li><code class="docutils literal"><span class="pre">on_channel_new(channel)</span></code> - gets called whenever a new channel is
+created. <code class="docutils literal"><span class="pre">channel</span></code> is a <a class="reference internal" href="#Channel" title="Channel"><code class="xref py py-class docutils literal"><span class="pre">Channel</span></code></a> object.</li>
+<li><code class="docutils literal"><span class="pre">on_channel_update(channel)</span></code> - gets called whenever a channel is
+updated (renamed, marked as read, etc.) <code class="docutils literal"><span class="pre">channel</span></code> is a
+<a class="reference internal" href="#Channel" title="Channel"><code class="xref py py-class docutils literal"><span class="pre">Channel</span></code></a> object.</li>
+<li><code class="docutils literal"><span class="pre">on_channel_delete(channel)</span></code> - gets called whenever a channel is
+deleted. <code class="docutils literal"><span class="pre">channel</span></code> is a <a class="reference internal" href="#Channel" title="Channel"><code class="xref py py-class docutils literal"><span class="pre">Channel</span></code></a> object.</li>
+<li><code class="docutils literal"><span class="pre">on_pin_add(message)</span></code> - gets called whenever a message is pinned to
+a channel. <code class="docutils literal"><span class="pre">message</span></code> is a <code class="xref py py-class docutils literal"><span class="pre">Message</span></code> object.</li>
+<li><code class="docutils literal"><span class="pre">on_pin_remove(mid)</span></code> - gets called whenever a message is unpinned
+from a channel. <code class="docutils literal"><span class="pre">mid</span></code> is a string.</li>
+<li><code class="docutils literal"><span class="pre">on_user_new(user)</span></code> - gets called whenever a new user joins the
+server or is authorized (on a server that requires authorization).
+<code class="docutils literal"><span class="pre">user</span></code> is a <a class="reference internal" href="#User" title="User"><code class="xref py py-class docutils literal"><span class="pre">User</span></code></a> object.</li>
+<li><code class="docutils literal"><span class="pre">on_user_gone(uid)</span></code> - gets called whenever a user leaves the server
+or is deauthorized (on a server that requires authorization).
+<code class="docutils literal"><span class="pre">uid</span></code> is a string.</li>
+<li><code class="docutils literal"><span class="pre">on_user_online(user)</span></code> gets called whenever a user who was offline
+before becomes online. <code class="docutils literal"><span class="pre">user</span></code> is a <a class="reference internal" href="#User" title="User"><code class="xref py py-class docutils literal"><span class="pre">User</span></code></a> object.</li>
+<li><code class="docutils literal"><span class="pre">on_user_offline(user)</span></code> gets called whenever a user who was online
+before becomes offline. <code class="docutils literal"><span class="pre">user</span></code> is a <a class="reference internal" href="#User" title="User"><code class="xref py py-class docutils literal"><span class="pre">User</span></code></a> object.</li>
+<li><code class="docutils literal"><span class="pre">on_user_update(user)</span></code> - gets called whenever a user is updated.
+<code class="docutils literal"><span class="pre">user</span></code> is a <a class="reference internal" href="#User" title="User"><code class="xref py py-class docutils literal"><span class="pre">User</span></code></a> object.</li>
+<li><code class="docutils literal"><span class="pre">on_user_mention(message)</span></code> - gets called whenever a user is mentioned
+in a message. <code class="docutils literal"><span class="pre">message</span></code> is a <code class="xref py py-class docutils literal"><span class="pre">Message</span></code> object.</li>
+<li><code class="docutils literal"><span class="pre">on_user_unmention(mid)</span></code> - gets called whenever a message mentioning
+a user is edited or deleted to unmention the user. <code class="docutils literal"><span class="pre">mid</span></code> is a string.</li>
+<li><code class="docutils literal"><span class="pre">on_emote_new(emote)</span></code> - gets called whenever a new emote is created.
+<code class="docutils literal"><span class="pre">emote</span></code> is a <a class="reference internal" href="#Emote" title="Emote"><code class="xref py py-class docutils literal"><span class="pre">Emote</span></code></a> object.</li>
+<li><code class="docutils literal"><span class="pre">on_emote_delete(shortcode)</span></code> - gets called whenever an emote is
+deleted. <code class="docutils literal"><span class="pre">shortcode</span></code> is a string.</li>
+</ul>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="channel">
+<h2>Channel<a class="headerlink" href="#channel" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="Channel">
+<em class="property">class </em><code class="descname">Channel</code><span class="sig-paren">(</span><em>server</em>, <em>cid</em>, <em>name</em><span class="optional">[</span>, <em>unread_count</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#Channel" title="Permalink to this definition">¶</a></dt>
+<dd><p>A Decent channel. Belongs to a server, and messages can be sent and received
+in channels. You’ll rarely if ever use the constructor - Channel objects are
+normally initialized for you automatically.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>server</strong> (<a class="reference internal" href="#Server" title="Server"><em>Server</em></a>) – The server that the channel belongs to</li>
+<li><strong>cid</strong> (<em>str</em>) – The channel ID</li>
+<li><strong>name</strong> (<em>str</em>) – The name of the channel</li>
+<li><strong>unread_count</strong> (<em>str</em>) – The number of unread messages in the channel</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Variables:</th><td class="field-body"><ul class="first last simple">
+<li><strong>cid</strong> (<em>str</em>) – The channel ID</li>
+<li><strong>name</strong> (<em>str</em>) – The name of the channel</li>
+<li><strong>unread_count</strong> (<em>str</em>) – The number of unread messages in the channel</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="Channel.pins">
+<code class="descname">pins</code><a class="headerlink" href="#Channel.pins" title="Permalink to this definition">¶</a></dt>
+<dd><p>The pinned messages in the channel.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="Channel.from_json">
+<em class="property">classmethod </em><code class="descname">from_json</code><span class="sig-paren">(</span><em>server</em>, <em>json</em><span class="sig-paren">)</span><a class="headerlink" href="#Channel.from_json" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructs a Channel object from a JSON object returned by a Decent
+server.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>server</strong> (<a class="reference internal" href="#Server" title="Server"><em>Server</em></a>) – The server that the channel belongs to</li>
+<li><strong>json</strong> (<em>dict</em>) – The JSON object from the Decent server.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Channel.delete">
+<code class="descname">delete</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Channel.delete" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deletes the channel.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Channel.latest_messages">
+<code class="descname">latest_messages</code><span class="sig-paren">(</span><span class="optional">[</span><em>before</em><span class="optional">[</span>, <em>after</em><span class="optional">[</span>, <em>limit</em><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#Channel.latest_messages" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the latest messages in the channel. If <code class="docutils literal"><span class="pre">before</span></code> is specified, it
+will only return messages sent before the message ID specified in
+<code class="docutils literal"><span class="pre">before</span></code>, and if <code class="docutils literal"><span class="pre">after</span></code> is specified, it will only return messages
+sent after the message ID specified in <code class="docutils literal"><span class="pre">after</span></code>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>before</strong> (<em>str</em>) – A message ID - only return messages <strong>before</strong> this
+message</li>
+<li><strong>after</strong> (<em>str</em>) – A message ID - only return messages <strong>after</strong> this
+message</li>
+<li><strong>limit</strong> (<em>int</em>) – The maximum number of messages to fetch. Default is 50,
+must be <code class="docutils literal"><span class="pre">1</span> <span class="pre">&lt;=</span> <span class="pre">limit</span> <span class="pre">&lt;=</span> <span class="pre">50</span></code>.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">a list of <code class="xref py py-class docutils literal"><span class="pre">Message</span></code> objects.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Channel.mark_read">
+<code class="descname">mark_read</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Channel.mark_read" title="Permalink to this definition">¶</a></dt>
+<dd><p>Marks the channel as read.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Channel.rename">
+<code class="descname">rename</code><span class="sig-paren">(</span><em>new_name</em><span class="sig-paren">)</span><a class="headerlink" href="#Channel.rename" title="Permalink to this definition">¶</a></dt>
+<dd><p>Renames the channel to <code class="docutils literal"><span class="pre">new_name</span></code>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>new_name</strong> (<em>str</em>) – The new name of the channel.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Channel.send">
+<code class="descname">send</code><span class="sig-paren">(</span><em>text</em><span class="sig-paren">)</span><a class="headerlink" href="#Channel.send" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sends a new message in the channel.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>text</strong> (<em>str</em>) – The text of the message to send.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">the newly created <code class="xref py py-class docutils literal"><span class="pre">Message</span></code> object.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="Channel.by_id">
+<em class="property">static </em><code class="descname">by_id</code><span class="sig-paren">(</span><em>server</em>, <em>cid</em><span class="sig-paren">)</span><a class="headerlink" href="#Channel.by_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets a channel by its ID in server <code class="docutils literal"><span class="pre">server</span></code>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>server</strong> (<a class="reference internal" href="#Server" title="Server"><em>Server</em></a>) – The server object to look in</li>
+<li><strong>cid</strong> (<em>str</em>) – The channel ID to search for</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="message">
+<h2>Message<a class="headerlink" href="#message" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt>
+<code class="descname">Message(server, mid, author, channel, text, date, edit_date,</code></dt>
+<dt>
+<code class="descname">reactions, mentions)</code></dt>
+<dd><p>A message sent in a Decent channel. Again, the constructor will rarely, if
+ever, be used.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>server</strong> (<a class="reference internal" href="#Server" title="Server"><em>Server</em></a>) – The server that the message belongs to</li>
+<li><strong>mid</strong> (<em>str</em>) – The message ID</li>
+<li><strong>author</strong> (<a class="reference internal" href="#User" title="User"><em>User</em></a>) – The author of the message</li>
+<li><strong>channel</strong> (<a class="reference internal" href="#Channel" title="Channel"><em>Channel</em></a>) – The channel that the message was sent in</li>
+<li><strong>text</strong> (<em>str</em>) – The text of the message</li>
+<li><strong>date</strong> (<em>datetime</em>) – The date/time the message was sent</li>
+<li><strong>edit_date</strong> (<em>datetime</em>) – The date/time the message was edited</li>
+<li><strong>reactions</strong> (<em>list</em><em>[</em><a class="reference internal" href="#Emote" title="Emote"><em>Emote</em></a><em>]</em>) – The reactions attached to the message</li>
+<li><strong>mentions</strong> (<em>list</em><em>[</em><a class="reference internal" href="#User" title="User"><em>User</em></a><em>]</em>) – The users mentioned in the message</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Variables:</th><td class="field-body"><ul class="first last simple">
+<li><strong>server</strong> (<a class="reference internal" href="#Server" title="Server"><em>Server</em></a>) – The server that the message belongs to</li>
+<li><strong>mid</strong> (<em>str</em>) – The message ID</li>
+<li><strong>author</strong> (<a class="reference internal" href="#User" title="User"><em>User</em></a>) – The author of the message</li>
+<li><strong>channel</strong> (<a class="reference internal" href="#Channel" title="Channel"><em>Channel</em></a>) – The channel that the message was sent in</li>
+<li><strong>text</strong> (<em>str</em>) – The text of the message</li>
+<li><strong>date</strong> (<em>datetime</em>) – The date/time the message was sent</li>
+<li><strong>edit_date</strong> (<em>datetime</em>) – The date/time the message was edited</li>
+<li><strong>reactions</strong> (<em>list</em><em>[</em><a class="reference internal" href="#Emote" title="Emote"><em>Emote</em></a><em>]</em>) – The reactions attached to the message</li>
+<li><strong>mentions</strong> (<em>list</em><em>[</em><a class="reference internal" href="#User" title="User"><em>User</em></a><em>]</em>) – The users mentioned in the message</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="classmethod">
+<dt id="from_json">
+<em class="property">classmethod </em><code class="descname">from_json</code><span class="sig-paren">(</span><em>server</em>, <em>json</em><span class="sig-paren">)</span><a class="headerlink" href="#from_json" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructs a Message object from a JSON object returned by a Decent
+server.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>server</strong> (<a class="reference internal" href="#Server" title="Server"><em>Server</em></a>) – The server that the message belongs to</li>
+<li><strong>json</strong> (<em>dict</em>) – The JSON object from the Decent server</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="edit">
+<code class="descname">edit</code><span class="sig-paren">(</span><em>newtext</em><span class="sig-paren">)</span><a class="headerlink" href="#edit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Edits the message and replaces the text with <code class="docutils literal"><span class="pre">newtext</span></code>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>newtext</strong> (<em>str</em>) – The new text of the message</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="user">
+<h2>User<a class="headerlink" href="#user" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="User">
+<em class="property">class </em><code class="descname">User</code><span class="sig-paren">(</span><em>server</em>, <em>uid</em>, <em>username</em>, <em>perm_level</em>, <em>flair</em>, <em>online</em>, <em>avatar_url</em><span class="optional">[</span>, <em>email</em><span class="optional">[</span>, <em>authorized</em><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#User" title="Permalink to this definition">¶</a></dt>
+<dd><p>A user on a Decent server. Again, the constructor is rarely, if ever, used.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>server</strong> (<a class="reference internal" href="#Server" title="Server"><em>Server</em></a>) – The server that the user belongs to</li>
+<li><strong>uid</strong> (<em>str</em>) – The user’s ID</li>
+<li><strong>username</strong> (<em>str</em>) – The user’s username</li>
+<li><strong>perm_level</strong> (<em>str</em>) – The permission level (<code class="docutils literal"><span class="pre">&quot;admin&quot;</span></code> or <code class="docutils literal"><span class="pre">&quot;member&quot;</span></code>)</li>
+<li><strong>flair</strong> (<em>str</em>) – The user’s flair</li>
+<li><strong>online</strong> (<em>bool</em>) – The online/offline status of the user</li>
+<li><strong>avatar_url</strong> (<em>str</em>) – The URL of the user’s avatar</li>
+<li><strong>email</strong> (<em>str</em>) – The user’s email</li>
+<li><strong>authorized</strong> (<em>bool</em>) – The user’s authorization status</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Variables:</th><td class="field-body"><ul class="first last simple">
+<li><strong>server</strong> (<a class="reference internal" href="#Server" title="Server"><em>Server</em></a>) – The server that the user belongs to</li>
+<li><strong>uid</strong> (<em>str</em>) – The user’s ID</li>
+<li><strong>username</strong> (<em>str</em>) – The user’s username</li>
+<li><strong>perm_level</strong> (<em>str</em>) – The permission level (<code class="docutils literal"><span class="pre">&quot;admin&quot;</span></code> or <code class="docutils literal"><span class="pre">&quot;member&quot;</span></code>)</li>
+<li><strong>flair</strong> (<em>str</em>) – The user’s flair</li>
+<li><strong>online</strong> (<em>bool</em>) – The online/offline status of the user</li>
+<li><strong>avatar_url</strong> (<em>str</em>) – The URL of the user’s avatar</li>
+<li><strong>email</strong> (<em>str</em>) – The user’s email</li>
+<li><strong>authorized</strong> (<em>bool</em>) – The user’s authorization status</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="classmethod">
+<dt id="User.from_json">
+<em class="property">classmethod </em><code class="descname">from_json</code><span class="sig-paren">(</span><em>server</em>, <em>json</em><span class="sig-paren">)</span><a class="headerlink" href="#User.from_json" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a User object from a JSON object returned by a Decent server.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>server</strong> (<a class="reference internal" href="#Server" title="Server"><em>Server</em></a>) – The server that the user belongs to</li>
+<li><strong>json</strong> (<em>dict</em>) – The JSON object from the Decent server</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="User.authorize">
+<code class="descname">authorize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#User.authorize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Authorizes the user.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="User.deauthorize">
+<code class="descname">deauthorize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#User.deauthorize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deauthorizes the user.</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="User.by_id">
+<em class="property">static </em><code class="descname">by_id</code><span class="sig-paren">(</span><em>server</em>, <em>uid</em><span class="sig-paren">)</span><a class="headerlink" href="#User.by_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a user from server <code class="docutils literal"><span class="pre">server</span></code> with ID <code class="docutils literal"><span class="pre">uid</span></code>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>server</strong> (<a class="reference internal" href="#Server" title="Server"><em>Server</em></a>) – The server to search in</li>
+<li><strong>uid</strong> (<em>str</em>) – The user ID to search for</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">a <a class="reference internal" href="#User" title="User"><code class="xref py py-class docutils literal"><span class="pre">User</span></code></a> object</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><strong>DecentError</strong> – if a user with the given ID is not found in the
+server.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="emote">
+<h2>Emote<a class="headerlink" href="#emote" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="Emote">
+<em class="property">class </em><code class="descname">Emote</code><span class="sig-paren">(</span><em>server</em>, <em>shortcode</em>, <em>image_url</em><span class="sig-paren">)</span><a class="headerlink" href="#Emote" title="Permalink to this definition">¶</a></dt>
+<dd><p>An emote on a Decent server.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>server</strong> (<a class="reference internal" href="#Server" title="Server"><em>Server</em></a>) – The server that the emote belongs to</li>
+<li><strong>shortcode</strong> (<em>str</em>) – The <code class="docutils literal"><span class="pre">:shortcode:</span></code> of the emote</li>
+<li><strong>image_url</strong> (<em>str</em>) – The URL of the emote’s image</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Variables:</th><td class="field-body"><ul class="first last simple">
+<li><strong>server</strong> (<a class="reference internal" href="#Server" title="Server"><em>Server</em></a>) – The server that the emote belongs to</li>
+<li><strong>shortcode</strong> (<em>str</em>) – The <code class="docutils literal"><span class="pre">:shortcode:</span></code> of the emote</li>
+<li><strong>image_url</strong> (<em>str</em>) – The URL of the emote’s image</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="classmethod">
+<dt id="Emote.from_json">
+<em class="property">classmethod </em><code class="descname">from_json</code><span class="sig-paren">(</span><em>server</em>, <em>json</em><span class="sig-paren">)</span><a class="headerlink" href="#Emote.from_json" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates an Emote object from a JSON object returned by a Decent server.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>server</strong> (<a class="reference internal" href="#Server" title="Server"><em>Server</em></a>) – The server that the emote belongs to</li>
+<li><strong>json</strong> (<em>dict</em>) – The JSON object from the Decent server</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="Emote.by_shortcode">
+<em class="property">static </em><code class="descname">by_shortcode</code><span class="sig-paren">(</span><em>server</em>, <em>shortcode</em><span class="sig-paren">)</span><a class="headerlink" href="#Emote.by_shortcode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns an emote from server <code class="docutils literal"><span class="pre">server</span></code> with shortcode <code class="docutils literal"><span class="pre">shortcode</span></code>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>server</strong> (<a class="reference internal" href="#Server" title="Server"><em>Server</em></a>) – The server to search in</li>
+<li><strong>shortcode</strong> (<em>str</em>) – The shortcode to search for</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">a <a class="reference internal" href="#Emote" title="Emote"><code class="xref py py-class docutils literal"><span class="pre">Emote</span></code></a> object</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><strong>DecentError</strong> – if an emote with the given shortcode is not found
+in the server.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="common_tasks.html" title="previous chapter">Common tasks</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, xn--cr8h.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/api_reference.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

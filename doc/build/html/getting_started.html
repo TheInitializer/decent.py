@@ -1,0 +1,160 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Getting started &#8212; decent.py 0.1 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Common tasks" href="common_tasks.html" />
+    <link rel="prev" title="Welcome to decent.py!" href="intro.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="getting-started">
+<h1>Getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<p>Normally, I would tell you to install something with pip, but since this isn’t
+quite finished yet, I don’t have a PyPI package. It’ll happen eventually!</p>
+<p>To get started, clone from the GitHub repo:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">TheInitializer</span><span class="o">/</span><span class="n">decent</span><span class="o">.</span><span class="n">py</span><span class="o">.</span><span class="n">git</span> <span class="n">decent</span>
+</pre></div>
+</div>
+<p>You can put this in site_packages if you want:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">mv</span> <span class="n">decent</span> <span class="o">&lt;</span><span class="n">python</span> <span class="n">installation</span> <span class="nb">dir</span><span class="o">&gt;/</span><span class="n">Lib</span><span class="o">/</span><span class="n">site_package</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="creating-your-first-program-with-decent-py">
+<h2>Creating your first program with decent.py<a class="headerlink" href="#creating-your-first-program-with-decent-py" title="Permalink to this headline">¶</a></h2>
+<p>Start by importing decent:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">decent</span>
+</pre></div>
+</div>
+<p>Next, create a <a class="reference internal" href="api_reference.html#Server" title="Server"><code class="xref py py-class docutils literal"><span class="pre">Server</span></code></a> object with server details, and connect to it. (The
+connection process is done separately, because you may need to reconnect in
+the future if you get disconnected!)</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">my_server</span> <span class="o">=</span> <span class="n">decent</span><span class="o">.</span><span class="n">Server</span><span class="p">(</span><span class="s2">&quot;https://my-server.com&quot;</span><span class="p">,</span> <span class="s2">&quot;my_username&quot;</span><span class="p">,</span> <span class="s2">&quot;my_password&quot;</span><span class="p">)</span>
+<span class="n">my_server</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Now you can create an event callback that triggers when certain events happen
+on the server. Here, we’re using <code class="docutils literal"><span class="pre">on_message</span></code>, which will get called whenever
+a message is sent.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="nd">@my_server</span><span class="o">.</span><span class="n">event</span>
+<span class="k">def</span> <span class="nf">on_message</span><span class="p">(</span><span class="n">message</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;New message from </span><span class="si">{}</span><span class="s2">: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">message</span><span class="o">.</span><span class="n">author</span><span class="p">,</span> <span class="n">message</span><span class="o">.</span><span class="n">text</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>Note that decent.py fully supports Python 2 as well as Python 3, in case you
+need to use an older version for legacy reasons.</p>
+<p>We can also send messages with the <a class="reference internal" href="api_reference.html#Channel.send" title="Channel.send"><code class="xref py py-meth docutils literal"><span class="pre">Channel.send()</span></code></a> method:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">message</span><span class="o">.</span><span class="n">channel</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="s2">&quot;Received a message!&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Here, we’re getting the channel <code class="docutils literal"><span class="pre">message</span></code> was sent in with
+<code class="docutils literal"><span class="pre">message.channel</span></code>, then sending a new message to that channel with the
+<code class="docutils literal"><span class="pre">send</span></code> method.</p>
+<p>Finally, we need to call the <a class="reference internal" href="api_reference.html#Server.mainloop" title="Server.mainloop"><code class="xref py py-meth docutils literal"><span class="pre">Server.mainloop()</span></code></a> method. This will receive
+websocket events from the server and call our callbacks, as well as letting
+the server know we’re still online and auto-update our class with useful
+data.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="n">my_server</span><span class="o">.</span><span class="n">mainloop</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Here’s the finished program:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">decent</span>
+
+<span class="n">my_server</span> <span class="o">=</span> <span class="n">decent</span><span class="o">.</span><span class="n">Server</span><span class="p">(</span><span class="s2">&quot;https://my-server.com&quot;</span><span class="p">,</span> <span class="s2">&quot;my_username&quot;</span><span class="p">,</span> <span class="s2">&quot;my_password&quot;</span><span class="p">)</span>
+<span class="n">my_server</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
+
+
+<span class="nd">@my_server</span><span class="o">.</span><span class="n">event</span>
+<span class="k">def</span> <span class="nf">on_message</span><span class="p">(</span><span class="n">message</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;New message from </span><span class="si">{}</span><span class="s2">: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">message</span><span class="o">.</span><span class="n">author</span><span class="p">,</span> <span class="n">message</span><span class="o">.</span><span class="n">text</span><span class="p">))</span>
+    <span class="n">message</span><span class="o">.</span><span class="n">channel</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="s2">&quot;Received a message!&quot;</span><span class="p">)</span>
+
+
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="n">my_server</span><span class="o">.</span><span class="n">mainloop</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="intro.html" title="previous chapter">Welcome to decent.py!</a></li>
+      <li>Next: <a href="common_tasks.html" title="next chapter">Common tasks</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, xn--cr8h.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/getting_started.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
