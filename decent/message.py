@@ -37,6 +37,7 @@ class Message:
         self.date = date
         self.edit_date = edit_date
         self.reactions = reactions
+        self.mentions = mentions
 
 
     @classmethod
@@ -45,7 +46,10 @@ class Message:
         mid = json["id"]
         text = json["text"]
         date = datetime.datetime.fromtimestamp(json["date"] / 1000)
-        edit_date = datetime.datetime.fromtimestamp(json["editDate"] / 1000)
+        if json["editDate"]:
+            edit_date = datetime.datetime.fromtimestamp(json["editDate"]/1000)
+        else:
+            edit_date = None
 
         reactions = []
         for i in json["reactions"]:
@@ -62,7 +66,7 @@ class Message:
             mentions.append(User.by_id(server, uid))
 
         return cls(server, mid, author, channel, text, date, edit_date,
-                   reactions)
+                   reactions, mentions)
 
 
     def edit(self, newtext):

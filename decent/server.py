@@ -1,8 +1,8 @@
-import requests
-import re
-import websocket
 import json
 import sys
+import re
+import requests
+import websocket
 
 # static type checking, mainly for testing
 # python versions <3.5 don't have this in the standard library,
@@ -43,21 +43,21 @@ class Server:
 
         # placeholder callbacks
         self.callbacks = {
-            "on_message": lambda message: None
-            "on_edit": lambda message: None
-            "on_channel_new": lambda channel: None
-            "on_channel_update": lambda channel: None
-            "on_channel_delete": lambda channel: None
-            "on_pin_add": lambda message: None
-            "on_pin_remove": lambda mid: None
-            "on_user_online": lambda user: None
-            "on_user_offline": lambda user: None
-            "on_user_new": lambda user: None
-            "on_user_gone": lambda uid: None
-            "on_user_update": lambda user: None
-            "on_user_mention": lambda message: None
-            "on_user_unmention": lambda mid: None
-            "on_emote_new": lambda emote: None
+            "on_message": lambda message: None,
+            "on_edit": lambda message: None,
+            "on_channel_new": lambda channel: None,
+            "on_channel_update": lambda channel: None,
+            "on_channel_delete": lambda channel: None,
+            "on_pin_add": lambda message: None,
+            "on_pin_remove": lambda mid: None,
+            "on_user_online": lambda user: None,
+            "on_user_offline": lambda user: None,
+            "on_user_new": lambda user: None,
+            "on_user_gone": lambda uid: None,
+            "on_user_update": lambda user: None,
+            "on_user_mention": lambda message: None,
+            "on_user_unmention": lambda mid: None,
+            "on_emote_new": lambda emote: None,
             "on_emote_delete": lambda shortcode: None
         }
 
@@ -68,7 +68,7 @@ class Server:
 
         # ping the server, to see if it's online
         ping = requests.get(self.api_url)
-        if (ping.status_code == requests.codes.ok and 
+        if (ping.status_code == requests.codes.ok and
             "decentVersion" in ping.json()):
             # valid decent server
             pass
@@ -178,7 +178,7 @@ class Server:
         message_data = self.socket.recv()
         message_json = json.loads(message_data)
 
-        data = message_json["data"]
+        data = message_json.get("data")
         if message_json["evt"] == "pingdata":
             pong_data = json.dumps({"evt": "pongdata", "data": {
                 "sessionID": self.session_id}})
