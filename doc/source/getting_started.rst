@@ -6,16 +6,15 @@ Getting started
 Installation
 ============
 
-Normally, I would tell you to install something with pip, but since this isn't
-quite finished yet, I don't have a PyPI package. It'll happen eventually!
+Install with ``pip``::
 
-To get started, clone from the GitHub repo::
+    pip install decent.py
 
-    git clone https://github.com/TheInitializer/decent.py.git decent
+Alternatively, clone from the GitHub repo and put it in ``site_packages``::
 
-You can put this in site_packages if you want::
-
-    mv decent <python installation dir>/Lib/site_package
+    git clone https://github.com/TheInitializer/decent.py.git
+    cd decent.py
+    mv decent <python installation dir>/Lib/site_packages
 
 
 Creating your first program with decent.py

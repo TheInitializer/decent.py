@@ -10,7 +10,7 @@ with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
 
 setup(
     name='decent.py',
-    version='1.0.0b',
+    version='1.0.0b1',
     description='Python API wrapper for Decent',
     long_description=long_description,
     url='https://github.com/TheInitializer/decent.py',
