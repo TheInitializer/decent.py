@@ -99,12 +99,9 @@ class Server:
             self.users.append(self.user)
 
             # add other users
-            print(users_data)
             for user in users_data["users"]:
                 if user["id"] != self.uid:
                     self.users.append(User.from_json(self, user))
-
-                print(self.users)
                 
 
             # get channels
@@ -119,7 +116,6 @@ class Server:
 
             # get server properties
             self.properties = self._request(requests.get, "properties")["properties"]
-            print(self.properties)
         else:
             raise DecentError.success_false("/api/sessions", login_data)
 
